@@ -77,7 +77,7 @@ def is_solved(board):
 WIDTH = 360
 HEIGHT = 360
 
-# Создаем игру и окно
+# Создаём игру и окно
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Пятнашки")
@@ -94,7 +94,7 @@ board = [
     [1, 2, 3, 4],
     [5, 6, 7, 8],
     [9, 10, 11, 12],
-    [13, 14, None, 15]
+    [13, 14, 15, None]
 ]
 moves = {
     'w': (-1, 0),
@@ -103,11 +103,13 @@ moves = {
     'd': (0, 1),
 }
 
+shuffle_board(board, moves, 200)
 
 while running:
     screen = print_board(board, screen)
     if is_solved(board):
         font = pygame.font.SysFont(None, 50)
+        screen.fill(BLUE)
         img = font.render("Вы победили!", True, RED)
         screen.blit(img, (30 + 30, 90 + 30))
     for event in pygame.event.get():
