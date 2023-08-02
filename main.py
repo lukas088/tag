@@ -1,4 +1,7 @@
+# Импортируем библиотеку pygame
 import pygame
+
+# Импортируем библиотеку random
 import random
 
 
@@ -16,11 +19,10 @@ def print_board(board, screen):
     font = pygame.font.SysFont(None, 50)
     for row in range(4):
         for col in range(4):
-            ch = str(board[row][col])
-            if ch == "None":
-                continue
-            img = font.render(ch, True, WHITE)
-            screen.blit(img, (90 * col + 30, 90 * row + 30))
+            number = board[row][col]
+            if number is not None:
+                img = number_images[number]  # Проверяем, что число не равно None
+                screen.blit(img, (90 * col + 30, 90 * row + 30))
 
     return screen
 
@@ -98,6 +100,17 @@ board = [
     [13, 14, 15, None]
 ]
 shuffle_board(board, moves, 200)
+
+# Предварительное создание изображений для чисел на доске
+font = pygame.font.SysFont(None, 50)
+number_images = {}  # Словарь для хранения изображений чисел
+for number in range(1, 16):
+    img = font.render(str(number), True, WHITE)
+    number_images[number] = img
+
+# Изображение для пустой ячейки (None)
+empty_img = font.render("None", True, WHITE)
+number_images[None] = empty_img
 
 # Цикл игры
 running = True
